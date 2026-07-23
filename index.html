@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alb - Digital Business Card</title>
+    <title>Albert Wong - Digital Business Card</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
     <style>
         * {
@@ -15,7 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #001a33, #003366, #004a80);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -39,21 +39,32 @@
         }
 
         .card-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(160deg, #003d7a 0%, #0058AB 30%, #0178BD 60%, #02a5d4 100%);
             padding: 40px 30px 60px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
-        .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 4px solid #fff;
-            object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            background: #e0e0e0;
+        /* Subtle light effect overlay */
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .logo {
+            width: 160px;
+            height: auto;
+            object-fit: contain;
             display: inline-block;
+            position: relative;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
         }
 
         .card-header h1 {
@@ -61,12 +72,21 @@
             font-size: 1.6rem;
             margin-top: 15px;
             font-weight: 700;
+            position: relative;
         }
 
-        .card-header p {
-            color: rgba(255, 255, 255, 0.85);
+        .card-header .title {
+            color: rgba(255, 255, 255, 0.9);
             font-size: 0.95rem;
-            margin-top: 5px;
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .card-header .company {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.9rem;
+            margin-top: 4px;
+            position: relative;
         }
 
         .card-body {
@@ -88,7 +108,7 @@
         }
 
         .contact-item:hover {
-            color: #667eea;
+            color: #0058AB;
             transform: translateX(5px);
         }
 
@@ -104,10 +124,10 @@
             flex-shrink: 0;
         }
 
-        .icon-phone { background: #e8f5e9; }
-        .icon-email { background: #e3f2fd; }
-        .icon-web { background: #fce4ec; }
-        .icon-location { background: #fff3e0; }
+        .icon-phone { background: #e3f2fd; }
+        .icon-email { background: #e8f0fe; }
+        .icon-web { background: #e0f2f7; }
+        .icon-waterworld { background: #e0f7fa; }
         .icon-linkedin { background: #e8eaf6; }
 
         .contact-item .details {
@@ -139,7 +159,7 @@
             gap: 8px;
             width: 100%;
             padding: 14px 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #0058AB, #0178BD);
             color: #fff;
             border: none;
             border-radius: 12px;
@@ -147,12 +167,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 88, 171, 0.4);
         }
 
         .btn-save:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 88, 171, 0.6);
         }
 
         .btn-save:active {
@@ -179,32 +199,6 @@
             border: 1px solid #eee;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f5f5f5;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-
-        .social-links a:hover {
-            background: #667eea;
-            color: #fff;
-            transform: scale(1.1);
-        }
-
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -224,52 +218,61 @@
 <body>
 
 <div class="card">
-    <!-- HEADER: Replace with your info -->
+    <!-- HEADER -->
     <div class="card-header">
-        <img class="avatar" src="https://via.placeholder.com/110" alt="Profile Photo">
-        <h1>Alb</h1>
-        <p>Your Job Title | Your Company</p>
+        <img class="logo" src="https://api.oceanpark.com.hk/media/rkwfxwh1/oceanpark_logo.webp" alt="Ocean Park Corporation">
+        <h1>Albert Wong</h1>
+        <p class="title">Assistant Director, IT Application</p>
+        <p class="company">Ocean Park Corporation</p>
     </div>
 
-    <!-- CONTACT INFO: Replace with your details -->
+    <!-- CONTACT INFO -->
     <div class="card-body">
-        <a href="tel:+1234567890" class="contact-item">
-            <div class="icon icon-phone">📱</div>
+        <a href="tel:+85239232895" class="contact-item">
+            <div class="icon icon-phone">📞</div>
             <div class="details">
-                <div class="label">Phone</div>
-                <div class="value">+1 (234) 567-890</div>
+                <div class="label">Direct</div>
+                <div class="value">+852 3923 2895</div>
             </div>
         </a>
 
-        <a href="mailto:alb@example.com" class="contact-item">
+        <a href="tel:+85296126598" class="contact-item">
+            <div class="icon icon-phone">📱</div>
+            <div class="details">
+                <div class="label">Mobile</div>
+                <div class="value">+852 9612 6598</div>
+            </div>
+        </a>
+
+        <a href="mailto:albert.dba.wong@oceanpark.com.hk" class="contact-item">
             <div class="icon icon-email">✉️</div>
             <div class="details">
                 <div class="label">Email</div>
-                <div class="value">alb@example.com</div>
+                <div class="value">albert.dba.wong@oceanpark.com.hk</div>
             </div>
         </a>
 
-        <a href="https://yourwebsite.com" target="_blank" class="contact-item">
+        <a href="https://www.oceanpark.com.hk" target="_blank" class="contact-item">
             <div class="icon icon-web">🌐</div>
             <div class="details">
-                <div class="label">Website</div>
-                <div class="value">yourwebsite.com</div>
+                <div class="label">Ocean Park</div>
+                <div class="value">www.oceanpark.com.hk</div>
             </div>
         </a>
 
-        <a href="https://maps.google.com/?q=Your+Address" target="_blank" class="contact-item">
-            <div class="icon icon-location">📍</div>
+        <a href="https://waterworld.oceanpark.com.hk" target="_blank" class="contact-item">
+            <div class="icon icon-waterworld">🌊</div>
             <div class="details">
-                <div class="label">Location</div>
-                <div class="value">Your City, Country</div>
+                <div class="label">Water World</div>
+                <div class="value">waterworld.oceanpark.com.hk</div>
             </div>
         </a>
 
-        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-item">
+        <a href="https://linkedin.com/in/albertdbwong" target="_blank" class="contact-item">
             <div class="icon icon-linkedin">💼</div>
             <div class="details">
                 <div class="label">LinkedIn</div>
-                <div class="value">linkedin.com/in/yourprofile</div>
+                <div class="value">linkedin.com/in/albertdbwong</div>
             </div>
         </a>
     </div>
@@ -291,40 +294,45 @@
 
 <script>
 // ============================================
-// CONFIGURATION - EDIT YOUR DETAILS HERE
+// CONFIGURATION
 // ============================================
 const contact = {
-    firstName: "Alb",
-    lastName: "",               // Your last name
-    title: "Your Job Title",
-    company: "Your Company",
-    phone: "+1234567890",
-    email: "alb@example.com",
-    website: "https://yourwebsite.com",
-    address: "Your City, Country",
-    linkedin: "https://linkedin.com/in/yourprofile",
+    firstName: "Albert",
+    lastName: "Wong",
+    title: "Assistant Director, IT Application",
+    company: "Ocean Park Corporation",
+    phoneDirect: "+85239232895",
+    phoneMobile: "+85296126598",
+    email: "albert.dba.wong@oceanpark.com.hk",
+    website: "https://www.oceanpark.com.hk",
+    waterworld: "https://waterworld.oceanpark.com.hk",
+    linkedin: "https://linkedin.com/in/albertdbwong",
     // URL where this card is hosted (for QR code)
-    cardUrl: "https://yourusername.github.io/card"
+    cardUrl: "https://opc-albertdbawong.github.io/card"
 };
 
 // ============================================
 // SAVE CONTACT AS .VCF FILE
+// Compatible with Outlook 2021, iOS, Android
 // ============================================
 function saveContact() {
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-FN:${contact.firstName} ${contact.lastName}
-N:${contact.lastName};${contact.firstName};;;
-TITLE:${contact.title}
-ORG:${contact.company}
-TEL;TYPE=CELL:${contact.phone}
-EMAIL:${contact.email}
-URL:${contact.website}
-item1.URL:${contact.linkedin}
-item1.X-ABLabel:LinkedIn
-X-SOCIALPROFILE;TYPE=linkedin:${contact.linkedin}
-ADR;TYPE=WORK:;;${contact.address};;;;
-END:VCARD`;
+    const vcard = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `FN:${contact.firstName} ${contact.lastName}`,
+        `N:${contact.lastName};${contact.firstName};;;`,
+        `TITLE:${contact.title}`,
+        `ORG:${contact.company}`,
+        `TEL;TYPE=WORK,VOICE:${contact.phoneDirect}`,
+        `TEL;TYPE=CELL:${contact.phoneMobile}`,
+        `EMAIL;TYPE=WORK:${contact.email}`,
+        `URL;TYPE=WORK:${contact.website}`,
+        `URL;TYPE=HOME:${contact.waterworld}`,
+        `URL:${contact.linkedin}`,
+        `X-SOCIALPROFILE;TYPE=linkedin:${contact.linkedin}`,
+        `NOTE:Water World: ${contact.waterworld}\\nLinkedIn: ${contact.linkedin}`,
+        "END:VCARD"
+    ].join("\r\n");
 
     const blob = new Blob([vcard], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
@@ -349,4 +357,3 @@ generateQR();
 
 </body>
 </html>
-
