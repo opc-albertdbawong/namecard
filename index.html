@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert Wong - Digital Business Card</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
+            width: 100%;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 40px 30px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Replace src with your photo URL */
+            background: #e0e0e0;
+            display: inline-block;
+        }
+
+        .card-header h1 {
+            color: #fff;
+            font-size: 1.6rem;
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        .card-header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-item:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .contact-item .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .icon-phone { background: #e8f5e9; }
+        .icon-email { background: #e3f2fd; }
+        .icon-web { background: #fce4ec; }
+        .icon-location { background: #fff3e0; }
+        .icon-linkedin { background: #e8eaf6; }
+
+        .contact-item .details {
+            flex: 1;
+        }
+
+        .contact-item .details .label {
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-item .details .value {
+            font-size: 0.95rem;
+            color: #333;
+            margin-top: 2px;
+        }
+
+        .card-footer {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+
+        .btn-save {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-save:active {
+            transform: translateY(0);
+        }
+
+        .qr-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .qr-section p {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .qr-code {
+            display: inline-block;
+            padding: 10px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .card {
+                border-radius: 15px;
+            }
+            .card-header {
+                padding: 30px 20px 50px;
+            }
+            .card-body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <!-- HEADER: Replace with your info -->
+    <div class="card-header">
+        <img class="avatar" src="https://via.placeholder.com/110" alt="Profile Photo">
+        <h1>Albert Wong</h1>
+        <p>Assistant Director, IT Application | Ocean Park Corporation</p>
+    </div>
+
+    <!-- CONTACT INFO: Replace with your details -->
+    <div class="card-body">
+        <a href="tel:+85239232895" class="contact-item">
+            <div class="icon icon-phone">📱</div>
+            <div class="details">
+                <div class="label">Direct</div>
+                <div class="value">+852 3923 2895</div>
+            </div>
+        </a>
+
+        <a href="mailto:albert.dba.wong@oceanpark.com.hk" class="contact-item">
+            <div class="icon icon-email">✉️</div>
+            <div class="details">
+                <div class="label">Email</div>
+                <div class="value">albert.dba.wong@oceanpark.com.hk</div>
+            </div>
+        </a>
+
+        <a href="https://www.oceanpark.com.hk" target="_blank" class="contact-item">
+            <div class="icon icon-web">🌐</div>
+            <div class="details">
+                <div class="label">Ocean Park Website</div>
+                <div class="value">www.oceanpark.com.hk</div>
+            </div>
+        </a>
+
+        <a href="https://waterworld.oceanpark.com.hk" target="_blank" class="contact-item">
+            <div class="icon icon-web">🌐</div>
+            <div class="details">
+                <div class="label">Water World Website</div>
+                <div class="value">waterworld.oceanpark.com.hk</div>
+            </div>
+        </a>
+
+        <!-- a href="https://maps.google.com/?q=Your+Address" target="_blank" class="contact-item">
+            <div class="icon icon-location">📍</div>
+            <div class="details">
+                <div class="label">Location</div>
+                <div class="value">Your City, Country</div>
+            </div>
+        </a -->
+
+        <a href="https://linkedin.com/in/albertdbwong" target="_blank" class="contact-item">
+            <div class="icon icon-linkedin">💼</div>
+            <div class="details">
+                <div class="label">LinkedIn</div>
+                <div class="value">linkedin.com/in/albertdbwong</div>
+            </div>
+        </a>
+    </div>
+
+    <!-- SAVE CONTACT BUTTON + QR CODE -->
+    <div class="card-footer">
+        <button class="btn-save" onclick="saveContact()">
+            <span>📥</span> Save to Contacts
+        </button>
+
+        <div class="qr-section">
+            <p>Scan to view this card</p>
+            <div class="qr-code">
+                <img id="qrcode" alt="QR Code" width="150" height="150">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// CONFIGURATION - EDIT YOUR DETAILS HERE
+// ============================================
+const contact = {
+    firstName: "Albert",
+    lastName: "Wong",               // Your last name
+    title: "Assistant Director, IT Application",
+    company: "Ocean Park Corporation",
+    phone: "+85239232895",
+    email: "albert.dba.wong@oceanpark.com.hk",
+    website: "https://www.oceanpark.com.hk",
+    address: "180 Wong Chuk Hang Road, Aberdeen, Hong Kong",
+    linkedin: "https://linkedin.com/in/albertdbwong",
+    // URL where this card is hosted (for QR code)
+    cardUrl: "https://ocp-albertdbawong.github.io/namecard"
+};
+
+// ============================================
+// SAVE CONTACT AS .VCF FILE
+// ============================================
+function saveContact() {
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${contact.firstName} ${contact.lastName}
+N:${contact.lastName};${contact.firstName};;;
+TITLE:${contact.title}
+ORG:${contact.company}
+TEL;TYPE=CELL:${contact.phone}
+EMAIL:${contact.email}
+URL:${contact.website}
+ADR;TYPE=WORK:;;${contact.address};;;;
+URL;TYPE=LinkedIn:${contact.linkedin}
+END:VCARD`;
+
+    const blob = new Blob([vcard], { type: "text/vcard" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${contact.firstName}_${contact.lastName}.vcf`;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+// ============================================
+// QR CODE GENERATION (using public API)
+// ============================================
+function generateQR() {
+    const qrImg = document.getElementById("qrcode");
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(contact.cardUrl)}`;
+    qrImg.src = qrUrl;
+}
+
+generateQR();
+</script>
+
+</body>
+</html>
