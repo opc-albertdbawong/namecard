@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albert Wong - Digital Business Card</title>
+    <title>Alb - Digital Business Card</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
     <style>
         * {
@@ -52,7 +52,6 @@
             border: 4px solid #fff;
             object-fit: cover;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            /* Replace src with your photo URL */
             background: #e0e0e0;
             display: inline-block;
         }
@@ -228,57 +227,49 @@
     <!-- HEADER: Replace with your info -->
     <div class="card-header">
         <img class="avatar" src="https://via.placeholder.com/110" alt="Profile Photo">
-        <h1>Albert Wong</h1>
-        <p>Assistant Director, IT Application | Ocean Park Corporation</p>
+        <h1>Alb</h1>
+        <p>Your Job Title | Your Company</p>
     </div>
 
     <!-- CONTACT INFO: Replace with your details -->
     <div class="card-body">
-        <a href="tel:+85239232895" class="contact-item">
+        <a href="tel:+1234567890" class="contact-item">
             <div class="icon icon-phone">📱</div>
             <div class="details">
-                <div class="label">Direct</div>
-                <div class="value">+852 3923 2895</div>
+                <div class="label">Phone</div>
+                <div class="value">+1 (234) 567-890</div>
             </div>
         </a>
 
-        <a href="mailto:albert.dba.wong@oceanpark.com.hk" class="contact-item">
+        <a href="mailto:alb@example.com" class="contact-item">
             <div class="icon icon-email">✉️</div>
             <div class="details">
                 <div class="label">Email</div>
-                <div class="value">albert.dba.wong@oceanpark.com.hk</div>
+                <div class="value">alb@example.com</div>
             </div>
         </a>
 
-        <a href="https://www.oceanpark.com.hk" target="_blank" class="contact-item">
+        <a href="https://yourwebsite.com" target="_blank" class="contact-item">
             <div class="icon icon-web">🌐</div>
             <div class="details">
-                <div class="label">Ocean Park Website</div>
-                <div class="value">www.oceanpark.com.hk</div>
+                <div class="label">Website</div>
+                <div class="value">yourwebsite.com</div>
             </div>
         </a>
 
-        <a href="https://waterworld.oceanpark.com.hk" target="_blank" class="contact-item">
-            <div class="icon icon-web">🌐</div>
-            <div class="details">
-                <div class="label">Water World Website</div>
-                <div class="value">waterworld.oceanpark.com.hk</div>
-            </div>
-        </a>
-
-        <!-- a href="https://maps.google.com/?q=Your+Address" target="_blank" class="contact-item">
+        <a href="https://maps.google.com/?q=Your+Address" target="_blank" class="contact-item">
             <div class="icon icon-location">📍</div>
             <div class="details">
                 <div class="label">Location</div>
                 <div class="value">Your City, Country</div>
             </div>
-        </a -->
+        </a>
 
-        <a href="https://linkedin.com/in/albertdbwong" target="_blank" class="contact-item">
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-item">
             <div class="icon icon-linkedin">💼</div>
             <div class="details">
                 <div class="label">LinkedIn</div>
-                <div class="value">linkedin.com/in/albertdbwong</div>
+                <div class="value">linkedin.com/in/yourprofile</div>
             </div>
         </a>
     </div>
@@ -303,17 +294,17 @@
 // CONFIGURATION - EDIT YOUR DETAILS HERE
 // ============================================
 const contact = {
-    firstName: "Albert",
-    lastName: "Wong",               // Your last name
-    title: "Assistant Director, IT Application",
-    company: "Ocean Park Corporation",
-    phone: "+85239232895",
-    email: "albert.dba.wong@oceanpark.com.hk",
-    website: "https://www.oceanpark.com.hk",
-    address: "180 Wong Chuk Hang Road, Aberdeen, Hong Kong",
-    linkedin: "https://linkedin.com/in/albertdbwong",
+    firstName: "Alb",
+    lastName: "",               // Your last name
+    title: "Your Job Title",
+    company: "Your Company",
+    phone: "+1234567890",
+    email: "alb@example.com",
+    website: "https://yourwebsite.com",
+    address: "Your City, Country",
+    linkedin: "https://linkedin.com/in/yourprofile",
     // URL where this card is hosted (for QR code)
-    cardUrl: "https://ocp-albertdbawong.github.io/namecard"
+    cardUrl: "https://yourusername.github.io/card"
 };
 
 // ============================================
@@ -329,8 +320,10 @@ ORG:${contact.company}
 TEL;TYPE=CELL:${contact.phone}
 EMAIL:${contact.email}
 URL:${contact.website}
+item1.URL:${contact.linkedin}
+item1.X-ABLabel:LinkedIn
+X-SOCIALPROFILE;TYPE=linkedin:${contact.linkedin}
 ADR;TYPE=WORK:;;${contact.address};;;;
-URL;TYPE=LinkedIn:${contact.linkedin}
 END:VCARD`;
 
     const blob = new Blob([vcard], { type: "text/vcard" });
@@ -356,3 +349,4 @@ generateQR();
 
 </body>
 </html>
+
