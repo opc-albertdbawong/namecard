@@ -313,7 +313,8 @@ const contact = {
 
 // ============================================
 // SAVE CONTACT AS .VCF FILE
-// Compatible with Outlook 2021, iOS, Android
+// Hybrid: URL;TYPE=WORK first for Outlook,
+// item grouping + X-ABLabel for iOS/macOS
 // ============================================
 function saveContact() {
     const vcard = [
@@ -326,9 +327,13 @@ function saveContact() {
         `TEL;TYPE=WORK,VOICE:${contact.phoneDirect}`,
         `TEL;TYPE=CELL:${contact.phoneMobile}`,
         `EMAIL;TYPE=WORK:${contact.email}`,
+        // Ocean Park website FIRST - Outlook uses this as primary "Web page address"
         `URL;TYPE=WORK:${contact.website}`,
-        `URL;TYPE=HOME:${contact.waterworld}`,
-        `URL:${contact.linkedin}`,
+        // Water World & LinkedIn via item grouping (iOS shows custom labels)
+        `item1.URL:${contact.waterworld}`,
+        `item1.X-ABLabel:Water World`,
+        `item2.URL:${contact.linkedin}`,
+        `item2.X-ABLabel:LinkedIn`,
         `X-SOCIALPROFILE;TYPE=linkedin:${contact.linkedin}`,
         `NOTE:Water World: ${contact.waterworld}\\nLinkedIn: ${contact.linkedin}`,
         "END:VCARD"
@@ -357,3 +362,4 @@ generateQR();
 
 </body>
 </html>
+
