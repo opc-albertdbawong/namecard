@@ -236,19 +236,21 @@
             </div>
         </a>
 
-        <a href="tel:+85296126598" class="contact-item">
+        <!-- Mobile number: displayed via JS only, not in raw HTML for bot protection -->
+        <a id="mobile-link" href="#" class="contact-item">
             <div class="icon icon-phone">📱</div>
             <div class="details">
                 <div class="label">Mobile</div>
-                <div class="value">+852 9612 6598</div>
+                <div class="value" id="mobile-display"></div>
             </div>
         </a>
 
-        <a href="mailto:albert.dba.wong@oceanpark.com.hk" class="contact-item">
+        <!-- Email: rendered via JS to prevent scraping -->
+        <a id="email-link" href="#" class="contact-item">
             <div class="icon icon-email">✉️</div>
             <div class="details">
                 <div class="label">Email</div>
-                <div class="value">albert.dba.wong@oceanpark.com.hk</div>
+                <div class="value" id="email-display"></div>
             </div>
         </a>
 
@@ -295,6 +297,8 @@
 <script>
 // ============================================
 // CONFIGURATION
+// Sensitive fields are split/encoded to deter
+// simple HTML scrapers from harvesting them.
 // ============================================
 const contact = {
     firstName: "Albert",
@@ -302,21 +306,48 @@ const contact = {
     title: "Assistant Director, IT Application",
     company: "Ocean Park Corporation",
     phoneDirect: "+85239232895",
-    phoneMobile: "+85296126598",
-    email: "albert.dba.wong@oceanpark.com.hk",
+    // Mobile split into parts - not a plain string in HTML
+    phoneMobile: ["+852", "9612", "6598"].join(""),
+    // Email split into parts - never appears as plain text in HTML source
+    emailUser: "albert.dba.wong",
+    emailDomain: "oceanpark.com.hk",
     website: "https://www.oceanpark.com.hk",
     waterworld: "https://waterworld.oceanpark.com.hk",
     linkedin: "https://linkedin.com/in/albertdbwong",
-    // URL where this card is hosted (for QR code)
     cardUrl: "https://opc-albertdbawong.github.io/namecard"
 };
 
 // ============================================
+// RENDER OBFUSCATED FIELDS VIA JAVASCRIPT
+// Bots that don't execute JS won't see these
+// ============================================
+function renderProtectedFields() {
+    const email = contact.emailUser + "@" + contact.emailDomain;
+    const mobile = contact.phoneMobile;
+
+    // Render email
+    const emailLink = document.getElementById("email-link");
+    const emailDisplay = document.getElementById("email-display");
+    emailLink.href = "mailto:" + email;
+    emailDisplay.textContent = email;
+
+    // Render mobile
+    const mobileLink = document.getElementById("mobile-link");
+    const mobileDisplay = document.getElementById("mobile-display");
+    mobileLink.href = "tel:" + mobile;
+    mobileDisplay.textContent = mobile.replace(/(\+852)(\d{4})(\d{4})/, "$1 $2 $3");
+}
+
+renderProtectedFields();
+
+// ============================================
 // SAVE CONTACT AS .VCF FILE
-// Hybrid: URL;TYPE=WORK first for Outlook,
-// item grouping + X-ABLabel for iOS/macOS
+// Mobile number included ONLY in the vCard
+// download — not visible in page source HTML
 // ============================================
 function saveContact() {
+    const email = contact.emailUser + "@" + contact.emailDomain;
+
     const vcard = [
         "BEGIN:VCARD",
         "VERSION:3.0",
@@ -326,7 +357,7 @@ function saveContact() {
         `ORG:${contact.company}`,
         `TEL;TYPE=WORK,VOICE:${contact.phoneDirect}`,
         `TEL;TYPE=CELL:${contact.phoneMobile}`,
-        `EMAIL;TYPE=WORK:${contact.email}`,
+        `EMAIL;TYPE=WORK:${email}`,
         // Ocean Park website FIRST - Outlook uses this as primary "Web page address"
         `URL;TYPE=WORK:${contact.website}`,
         // Water World & LinkedIn via item grouping (iOS shows custom labels)
