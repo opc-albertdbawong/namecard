@@ -1,0 +1,15 @@
+
+/* ============================================
+   THEME: Orange / Coral
+   Ocean Park tickets/CTA accent
+   ============================================ */
+:root {
+    --bg-gradient: linear-gradient(135deg, #331a00, #663300, #804a00);
+    --header-gradient: linear-gradient(160deg, #b84500 0%, #e85d04 30%, #f77f00 60%, #fcbf49 100%);
+    --accent-color: #e85d04;
+    --icon-bg: #fff3e0;
+    --btn-gradient: linear-gradient(135deg, #e85d04, #f77f00);
+    --btn-shadow: 0 4px 15px rgba(232, 93, 4, 0.4);
+    --btn-shadow-hover: 0 6px 20px rgba(232, 93, 4, 0.6);
+}
+

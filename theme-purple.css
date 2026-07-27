@@ -1,0 +1,15 @@
+
+/* ============================================
+   THEME: Purple
+   Ocean Park events/entertainment accent
+   ============================================ */
+:root {
+    --bg-gradient: linear-gradient(135deg, #1a0033, #2d1b69, #4a2080);
+    --header-gradient: linear-gradient(160deg, #3b1578 0%, #6b21a8 30%, #8b32c8 60%, #a855f7 100%);
+    --accent-color: #6b21a8;
+    --icon-bg: #f3e8ff;
+    --btn-gradient: linear-gradient(135deg, #6b21a8, #8b32c8);
+    --btn-shadow: 0 4px 15px rgba(107, 33, 168, 0.4);
+    --btn-shadow-hover: 0 6px 20px rgba(107, 33, 168, 0.6);
+}
+

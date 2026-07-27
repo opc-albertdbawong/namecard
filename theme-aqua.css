@@ -1,0 +1,15 @@
+
+/* ============================================
+   THEME: Aqua / Teal
+   Water World / marine life accent
+   ============================================ */
+:root {
+    --bg-gradient: linear-gradient(135deg, #002b33, #004d5e, #006d80);
+    --header-gradient: linear-gradient(160deg, #0e5c6e 0%, #0891b2 30%, #06b6d4 60%, #22d3ee 100%);
+    --accent-color: #0891b2;
+    --icon-bg: #e0f7fa;
+    --btn-gradient: linear-gradient(135deg, #0891b2, #06b6d4);
+    --btn-shadow: 0 4px 15px rgba(8, 145, 178, 0.4);
+    --btn-shadow-hover: 0 6px 20px rgba(8, 145, 178, 0.6);
+}
+

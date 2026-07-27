@@ -1,0 +1,200 @@
+
+/* ============================================
+   BASE STYLES - Layout & Structure
+   All colours reference CSS custom properties
+   defined in theme files.
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 420px;
+    width: 100%;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-header {
+    background: var(--header-gradient);
+    padding: 40px 30px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.logo {
+    width: 160px;
+    height: auto;
+    object-fit: contain;
+    display: inline-block;
+    position: relative;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.card-header h1 {
+    color: #fff;
+    font-size: 1.6rem;
+    margin-top: 15px;
+    font-weight: 700;
+    position: relative;
+}
+
+.card-header .title {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin-top: 8px;
+    position: relative;
+}
+
+.card-header .company {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    margin-top: 4px;
+    position: relative;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-item:hover {
+    color: var(--accent-color);
+    transform: translateX(5px);
+}
+
+.contact-item .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: var(--icon-bg);
+}
+
+.contact-item .details {
+    flex: 1;
+}
+
+.contact-item .details .label {
+    font-size: 0.75rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-item .details .value {
+    font-size: 0.95rem;
+    color: #333;
+    margin-top: 2px;
+}
+
+.card-footer {
+    padding: 0 30px 30px;
+    text-align: center;
+}
+
+.btn-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px 24px;
+    background: var(--btn-gradient);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--btn-shadow);
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--btn-shadow-hover);
+}
+
+.btn-save:active {
+    transform: translateY(0);
+}
+
+.qr-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.qr-section p {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.qr-code {
+    display: inline-block;
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+@media (max-width: 480px) {
+    body { padding: 10px; }
+    .card { border-radius: 15px; }
+    .card-header { padding: 30px 20px 50px; }
+    .card-body { padding: 20px; }
+}
+

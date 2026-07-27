@@ -1,0 +1,15 @@
+
+/* ============================================
+   THEME: Ocean Blue
+   Ocean Park primary brand colour
+   ============================================ */
+:root {
+    --bg-gradient: linear-gradient(135deg, #001a33, #003366, #004a80);
+    --header-gradient: linear-gradient(160deg, #003d7a 0%, #0058AB 30%, #0178BD 60%, #02a5d4 100%);
+    --accent-color: #0058AB;
+    --icon-bg: #e3f2fd;
+    --btn-gradient: linear-gradient(135deg, #0058AB, #0178BD);
+    --btn-shadow: 0 4px 15px rgba(0, 88, 171, 0.4);
+    --btn-shadow-hover: 0 6px 20px rgba(0, 88, 171, 0.6);
+}
+

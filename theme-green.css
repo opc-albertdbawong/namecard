@@ -1,0 +1,15 @@
+
+/* ============================================
+   THEME: Green
+   Ocean Park conservation/education accent
+   ============================================ */
+:root {
+    --bg-gradient: linear-gradient(135deg, #003319, #0d5e2e, #1a7a40);
+    --header-gradient: linear-gradient(160deg, #166534 0%, #16a34a 30%, #22c55e 60%, #4ade80 100%);
+    --accent-color: #16a34a;
+    --icon-bg: #dcfce7;
+    --btn-gradient: linear-gradient(135deg, #16a34a, #22c55e);
+    --btn-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+    --btn-shadow-hover: 0 6px 20px rgba(22, 163, 74, 0.6);
+}
+

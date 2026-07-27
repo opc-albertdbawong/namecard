@@ -1,283 +1,27 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="ocean-blue">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Albert Wong - Digital Business Card</title>
+    <title id="page-title">Digital Business Card</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-            background: linear-gradient(135deg, #001a33, #003366, #004a80);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 420px;
-            width: 100%;
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card-header {
-            background: linear-gradient(160deg, #003d7a 0%, #0058AB 30%, #0178BD 60%, #02a5d4 100%);
-            padding: 40px 30px 60px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Subtle light effect overlay */
-        .card-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .logo {
-            width: 160px;
-            height: auto;
-            object-fit: contain;
-            display: inline-block;
-            position: relative;
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
-        }
-
-        .card-header h1 {
-            color: #fff;
-            font-size: 1.6rem;
-            margin-top: 15px;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .card-header .title {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.95rem;
-            margin-top: 8px;
-            position: relative;
-        }
-
-        .card-header .company {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.9rem;
-            margin-top: 4px;
-            position: relative;
-        }
-
-        .card-body {
-            padding: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.2s ease;
-        }
-
-        .contact-item:last-child {
-            border-bottom: none;
-        }
-
-        .contact-item:hover {
-            color: #0058AB;
-            transform: translateX(5px);
-        }
-
-        .contact-item .icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .icon-phone { background: #e3f2fd; }
-        .icon-email { background: #e8f0fe; }
-        .icon-web { background: #e0f2f7; }
-        .icon-waterworld { background: #e0f7fa; }
-        .icon-linkedin { background: #e8eaf6; }
-
-        .contact-item .details {
-            flex: 1;
-        }
-
-        .contact-item .details .label {
-            font-size: 0.75rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .contact-item .details .value {
-            font-size: 0.95rem;
-            color: #333;
-            margin-top: 2px;
-        }
-
-        .card-footer {
-            padding: 0 30px 30px;
-            text-align: center;
-        }
-
-        .btn-save {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #0058AB, #0178BD);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 88, 171, 0.4);
-        }
-
-        .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 88, 171, 0.6);
-        }
-
-        .btn-save:active {
-            transform: translateY(0);
-        }
-
-        .qr-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .qr-section p {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 10px;
-        }
-
-        .qr-code {
-            display: inline-block;
-            padding: 10px;
-            background: #fff;
-            border-radius: 10px;
-            border: 1px solid #eee;
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            .card {
-                border-radius: 15px;
-            }
-            .card-header {
-                padding: 30px 20px 50px;
-            }
-            .card-body {
-                padding: 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme-ocean-blue.css" id="theme-stylesheet">
 </head>
 <body>
 
 <div class="card">
     <!-- HEADER -->
     <div class="card-header">
-        <img class="logo" src="https://api.oceanpark.com.hk/media/rkwfxwh1/oceanpark_logo.webp" alt="Ocean Park Corporation">
-        <h1>Albert Wong</h1>
-        <p class="title">Assistant Director, IT Application</p>
-        <p class="company">Ocean Park Corporation</p>
+        <img class="logo" id="card-logo" alt="Ocean Park Corporation">
+        <h1 id="card-name"></h1>
+        <p class="title" id="card-title"></p>
+        <p class="company" id="card-company"></p>
     </div>
 
-    <!-- CONTACT INFO -->
-    <div class="card-body">
-        <a href="tel:+85239232895" class="contact-item">
-            <div class="icon icon-phone">📞</div>
-            <div class="details">
-                <div class="label">Direct</div>
-                <div class="value">+852 3923 2895</div>
-            </div>
-        </a>
-
-        <!-- Mobile number: displayed via JS only, not in raw HTML for bot protection -->
-        <a id="mobile-link" href="#" class="contact-item">
-            <div class="icon icon-phone">📱</div>
-            <div class="details">
-                <div class="label">Mobile</div>
-                <div class="value" id="mobile-display"></div>
-            </div>
-        </a>
-
-        <!-- Email: rendered via JS to prevent scraping -->
-        <a id="email-link" href="#" class="contact-item">
-            <div class="icon icon-email">✉️</div>
-            <div class="details">
-                <div class="label">Email</div>
-                <div class="value" id="email-display"></div>
-            </div>
-        </a>
-
-        <a href="https://www.oceanpark.com.hk" target="_blank" class="contact-item">
-            <div class="icon icon-web">🌐</div>
-            <div class="details">
-                <div class="label">Ocean Park</div>
-                <div class="value">www.oceanpark.com.hk</div>
-            </div>
-        </a>
-
-        <a href="https://waterworld.oceanpark.com.hk" target="_blank" class="contact-item">
-            <div class="icon icon-waterworld">🌊</div>
-            <div class="details">
-                <div class="label">Water World</div>
-                <div class="value">waterworld.oceanpark.com.hk</div>
-            </div>
-        </a>
-
-        <a href="https://linkedin.com/in/albertdbwong" target="_blank" class="contact-item">
-            <div class="icon icon-linkedin">💼</div>
-            <div class="details">
-                <div class="label">LinkedIn</div>
-                <div class="value">linkedin.com/in/albertdbwong</div>
-            </div>
-        </a>
-    </div>
+    <!-- CONTACT INFO - rendered by JS -->
+    <div class="card-body" id="card-body"></div>
 
     <!-- SAVE CONTACT BUTTON + QR CODE -->
     <div class="card-footer">
@@ -296,81 +40,126 @@
 
 <script>
 // ============================================
-// CONFIGURATION
-// Sensitive fields are split/encoded to deter
-// simple HTML scrapers from harvesting them.
+// SINGLE DATA SOURCE
+// All card display AND vCard generation use this.
+// For the template system, this block will be
+// injected by the generator script.
 // ============================================
 const contact = {
     firstName: "Albert",
     lastName: "Wong",
     title: "Assistant Director, IT Application",
     company: "Ocean Park Corporation",
-    phoneDirect: "+85239232895",
-    // Mobile split into parts - not a plain string in HTML
-    phoneMobile: ["+852", "9612", "6598"].join(""),
-    // Email split into parts - never appears as plain text in HTML source
-    emailUser: "albert.dba.wong",
-    emailDomain: "oceanpark.com.hk",
-    website: "https://www.oceanpark.com.hk",
-    waterworld: "https://waterworld.oceanpark.com.hk",
-    linkedin: "https://linkedin.com/in/albertdbwong",
-    cardUrl: "https://opc-albertdbawong.github.io/namecard"
+    logo: "https://api.oceanpark.com.hk/media/rkwfxwh1/oceanpark_logo.webp",
+    // Phone: split for obfuscation
+    phoneDirect: { parts: ["+852","3923","2895"], type: "WORK,VOICE", label: "Direct", icon: "📞" },
+    phoneMobile: { parts: ["+852","9612","6598"], type: "CELL", label: "Mobile", icon: "📱" },
+    // Email: split for obfuscation
+    email: { user: "albert.dba.wong", domain: "oceanpark.com.hk", type: "WORK", label: "Email", icon: "✉️" },
+    // URLs
+    urls: [
+        { url: "https://www.oceanpark.com.hk", display: "www.oceanpark.com.hk", label: "Ocean Park", icon: "🌐", vcardType: "WORK" },
+        { url: "https://waterworld.oceanpark.com.hk", display: "waterworld.oceanpark.com.hk", label: "Water World", icon: "🌊", vcardLabel: "Water World" },
+        { url: "https://linkedin.com/in/albertdbwong", display: "linkedin.com/in/albertdbwong", label: "LinkedIn", icon: "💼", vcardLabel: "LinkedIn", social: "linkedin" }
+    ],
+    cardUrl: "https://opc-albertdbawong.github.io/namecard",
+    theme: "ocean-blue"
 };
 
 // ============================================
-// RENDER OBFUSCATED FIELDS VIA JAVASCRIPT
-// Bots that don't execute JS won't see these
+// RENDER CARD FROM DATA
 // ============================================
-function renderProtectedFields() {
-    const email = contact.emailUser + "@" + contact.emailDomain;
-    const mobile = contact.phoneMobile;
+function renderCard() {
+    // Page title
+    document.getElementById("page-title").textContent = `${contact.firstName} ${contact.lastName} - Digital Business Card`;
 
-    // Render email
-    const emailLink = document.getElementById("email-link");
-    const emailDisplay = document.getElementById("email-display");
-    emailLink.href = "mailto:" + email;
-    emailDisplay.textContent = email;
+    // Header
+    document.getElementById("card-logo").src = contact.logo;
+    document.getElementById("card-name").textContent = `${contact.firstName} ${contact.lastName}`;
+    document.getElementById("card-title").textContent = contact.title;
+    document.getElementById("card-company").textContent = contact.company;
 
-    // Render mobile
-    const mobileLink = document.getElementById("mobile-link");
-    const mobileDisplay = document.getElementById("mobile-display");
-    mobileLink.href = "tel:" + mobile;
-    mobileDisplay.textContent = mobile.replace(/(\+852)(\d{4})(\d{4})/, "$1 $2 $3");
+    // Contact items
+    const body = document.getElementById("card-body");
+    let html = "";
+
+    // Phone numbers
+    [contact.phoneDirect, contact.phoneMobile].forEach(phone => {
+        const number = phone.parts.join("");
+        const display = phone.parts.join(" ");
+        html += `<a href="tel:${number}" class="contact-item">
+            <div class="icon icon-phone">${phone.icon}</div>
+            <div class="details">
+                <div class="label">${phone.label}</div>
+                <div class="value">${display}</div>
+            </div>
+        </a>`;
+    });
+
+    // Email
+    const emailFull = `${contact.email.user}@${contact.email.domain}`;
+    html += `<a href="mailto:${emailFull}" class="contact-item">
+        <div class="icon icon-email">${contact.email.icon}</div>
+        <div class="details">
+            <div class="label">${contact.email.label}</div>
+            <div class="value">${emailFull}</div>
+        </div>
+    </a>`;
+
+    // URLs
+    contact.urls.forEach(u => {
+        html += `<a href="${u.url}" target="_blank" class="contact-item">
+            <div class="icon icon-web">${u.icon}</div>
+            <div class="details">
+                <div class="label">${u.label}</div>
+                <div class="value">${u.display}</div>
+            </div>
+        </a>`;
+    });
+
+    body.innerHTML = html;
 }
-
-renderProtectedFields();
 
 // ============================================
 // SAVE CONTACT AS .VCF FILE
-// Mobile number included ONLY in the vCard
-// download — not visible in page source HTML
 // ============================================
 function saveContact() {
-    const email = contact.emailUser + "@" + contact.emailDomain;
-
-    const vcard = [
+    const emailFull = `${contact.email.user}@${contact.email.domain}`;
+    const lines = [
         "BEGIN:VCARD",
         "VERSION:3.0",
         `FN:${contact.firstName} ${contact.lastName}`,
         `N:${contact.lastName};${contact.firstName};;;`,
         `TITLE:${contact.title}`,
         `ORG:${contact.company}`,
-        `TEL;TYPE=WORK,VOICE:${contact.phoneDirect}`,
-        `TEL;TYPE=CELL:${contact.phoneMobile}`,
-        `EMAIL;TYPE=WORK:${email}`,
-        // Ocean Park website FIRST - Outlook uses this as primary "Web page address"
-        `URL;TYPE=WORK:${contact.website}`,
-        // Water World & LinkedIn via item grouping (iOS shows custom labels)
-        `item1.URL:${contact.waterworld}`,
-        `item1.X-ABLabel:Water World`,
-        `item2.URL:${contact.linkedin}`,
-        `item2.X-ABLabel:LinkedIn`,
-        `X-SOCIALPROFILE;TYPE=linkedin:${contact.linkedin}`,
-        `NOTE:Water World: ${contact.waterworld}\\nLinkedIn: ${contact.linkedin}`,
-        "END:VCARD"
-    ].join("\r\n");
+        `TEL;TYPE=${contact.phoneDirect.type}:${contact.phoneDirect.parts.join("")}`,
+        `TEL;TYPE=${contact.phoneMobile.type}:${contact.phoneMobile.parts.join("")}`,
+        `EMAIL;TYPE=${contact.email.type}:${emailFull}`
+    ];
 
-    const blob = new Blob([vcard], { type: "text/vcard" });
+    // URLs: first one with TYPE for Outlook, rest with item grouping for iOS
+    let itemIndex = 1;
+    contact.urls.forEach((u, i) => {
+        if (i === 0 && u.vcardType) {
+            lines.push(`URL;TYPE=${u.vcardType}:${u.url}`);
+        } else {
+            lines.push(`item${itemIndex}.URL:${u.url}`);
+            lines.push(`item${itemIndex}.X-ABLabel:${u.vcardLabel || u.label}`);
+            itemIndex++;
+        }
+        // Social profile
+        if (u.social) {
+            lines.push(`X-SOCIALPROFILE;TYPE=${u.social}:${u.url}`);
+        }
+    });
+
+    // Notes as fallback
+    const noteUrls = contact.urls.slice(1).map(u => `${u.label}: ${u.url}`).join("\\n");
+    if (noteUrls) lines.push(`NOTE:${noteUrls}`);
+
+    lines.push("END:VCARD");
+
+    const blob = new Blob([lines.join("\r\n")], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -380,14 +169,17 @@ function saveContact() {
 }
 
 // ============================================
-// QR CODE GENERATION (using public API)
+// QR CODE
 // ============================================
 function generateQR() {
     const qrImg = document.getElementById("qrcode");
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(contact.cardUrl)}`;
-    qrImg.src = qrUrl;
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(contact.cardUrl)}`;
 }
 
+// ============================================
+// INIT
+// ============================================
+renderCard();
 generateQR();
 </script>
 
