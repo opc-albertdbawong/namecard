@@ -4,46 +4,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Digital Business Card</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+    <title>Theme Preview - Digital Business Card</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="theme-ocean-blue.css" id="theme-stylesheet">
+    <style>
+        /* Preview page specific styles */
+        .preview-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .theme-picker {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 20px 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .theme-picker h2 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .theme-options {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .theme-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-btn.active {
+            border-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        .theme-btn[data-theme="ocean-blue"] { background: linear-gradient(135deg, #0058AB, #02a5d4); }
+        .theme-btn[data-theme="purple"] { background: linear-gradient(135deg, #6b21a8, #a855f7); }
+        .theme-btn[data-theme="orange"] { background: linear-gradient(135deg, #e85d04, #fcbf49); }
+        .theme-btn[data-theme="green"] { background: linear-gradient(135deg, #16a34a, #4ade80); }
+        .theme-btn[data-theme="aqua"] { background: linear-gradient(135deg, #0891b2, #22d3ee); }
+
+        .theme-label {
+            font-size: 0.7rem;
+            color: #999;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .theme-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-note {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
-    <!-- HEADER -->
-    <div class="card-header">
-        <img class="logo" id="card-logo" alt="Ocean Park Corporation">
-        <h1 id="card-name"></h1>
-        <p class="title" id="card-title"></p>
-        <p class="company" id="card-company"></p>
-    </div>
-
-    <!-- CONTACT INFO - rendered by JS -->
-    <div class="card-body" id="card-body"></div>
-
-    <!-- SAVE CONTACT BUTTON + QR CODE -->
-    <div class="card-footer">
-        <button class="btn-save" onclick="saveContact()">
-            <span>📥</span> Save to Contacts
-        </button>
-
-        <div class="qr-section">
-            <p>Scan to view this card</p>
-            <div class="qr-code">
-                <img id="qrcode" alt="QR Code" width="150" height="150">
+<div class="preview-wrapper">
+    <!-- THEME PICKER -->
+    <div class="theme-picker">
+        <h2>🎨 Choose Your Theme</h2>
+        <div class="theme-options">
+            <div class="theme-option">
+                <button class="theme-btn active" data-theme="ocean-blue" onclick="setTheme('ocean-blue')" title="Ocean Blue"></button>
+                <span class="theme-label">Ocean Blue</span>
+            </div>
+            <div class="theme-option">
+                <button class="theme-btn" data-theme="purple" onclick="setTheme('purple')" title="Purple"></button>
+                <span class="theme-label">Purple</span>
+            </div>
+            <div class="theme-option">
+                <button class="theme-btn" data-theme="orange" onclick="setTheme('orange')" title="Orange"></button>
+                <span class="theme-label">Orange</span>
+            </div>
+            <div class="theme-option">
+                <button class="theme-btn" data-theme="green" onclick="setTheme('green')" title="Green"></button>
+                <span class="theme-label">Green</span>
+            </div>
+            <div class="theme-option">
+                <button class="theme-btn" data-theme="aqua" onclick="setTheme('aqua')" title="Aqua"></button>
+                <span class="theme-label">Aqua</span>
             </div>
         </div>
     </div>
+
+    <!-- CARD PREVIEW -->
+    <div class="card">
+        <div class="card-header">
+            <img class="logo" id="card-logo" alt="Ocean Park Corporation">
+            <h1 id="card-name"></h1>
+            <p class="title" id="card-title"></p>
+            <p class="company" id="card-company"></p>
+        </div>
+
+        <div class="card-body" id="card-body"></div>
+
+        <div class="card-footer">
+            <button class="btn-save" onclick="saveContact()">
+                <span>📥</span> Save to Contacts
+            </button>
+
+            <div class="qr-section">
+                <p>Scan to view this card</p>
+                <div class="qr-code">
+                    <img id="qrcode" alt="QR Code" width="150" height="150">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="preview-note">This is a preview page. Pick a theme and note the filename for your card configuration.</p>
 </div>
 
 <script>
 // ============================================
-// SINGLE DATA SOURCE
-// All card display AND vCard generation use this.
-// For the template system, this block will be
-// injected by the generator script.
+// SAMPLE DATA FOR PREVIEW
 // ============================================
 const contact = {
     firstName: "Albert",
@@ -51,48 +161,43 @@ const contact = {
     title: "Assistant Director, IT Application",
     company: "Ocean Park Corporation",
     logo: "https://api.oceanpark.com.hk/media/rkwfxwh1/oceanpark_logo.webp",
-    // Phone: split for obfuscation
     phoneDirect: { parts: ["+852","3923","2895"], type: "WORK,VOICE", label: "Direct", icon: "📞" },
     phoneMobile: { parts: ["+852","9612","6598"], type: "CELL", label: "Mobile", icon: "📱" },
-    // Email: split for obfuscation
     email: { user: "albert.dba.wong", domain: "oceanpark.com.hk", type: "WORK", label: "Email", icon: "✉️" },
-    // URLs
     urls: [
         { url: "https://www.oceanpark.com.hk", display: "www.oceanpark.com.hk", label: "Ocean Park", icon: "🌐", vcardType: "WORK" },
         { url: "https://waterworld.oceanpark.com.hk", display: "waterworld.oceanpark.com.hk", label: "Water World", icon: "🌊", vcardLabel: "Water World" },
         { url: "https://linkedin.com/in/albertdbwong", display: "linkedin.com/in/albertdbwong", label: "LinkedIn", icon: "💼", vcardLabel: "LinkedIn", social: "linkedin" }
     ],
     cardUrl: "https://opc-albertdbawong.github.io/namecard",
-    // Theme: determines which CSS file to load
-    // Options: ocean-blue, purple, orange, green, aqua
     theme: "ocean-blue"
 };
 
 // ============================================
-// APPLY THEME FROM DATA
+// THEME SWITCHER
 // ============================================
-function applyTheme() {
-    document.getElementById("theme-stylesheet").href = `theme-${contact.theme}.css`;
+function setTheme(themeName) {
+    // Update stylesheet
+    document.getElementById("theme-stylesheet").href = `theme-${themeName}.css`;
+
+    // Update active button
+    document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.theme === themeName);
+    });
 }
 
 // ============================================
-// RENDER CARD FROM DATA
+// RENDER CARD
 // ============================================
 function renderCard() {
-    // Page title
-    document.getElementById("page-title").textContent = `${contact.firstName} ${contact.lastName} - Digital Business Card`;
-
-    // Header
     document.getElementById("card-logo").src = contact.logo;
     document.getElementById("card-name").textContent = `${contact.firstName} ${contact.lastName}`;
     document.getElementById("card-title").textContent = contact.title;
     document.getElementById("card-company").textContent = contact.company;
 
-    // Contact items
     const body = document.getElementById("card-body");
     let html = "";
 
-    // Phone numbers
     [contact.phoneDirect, contact.phoneMobile].forEach(phone => {
         const number = phone.parts.join("");
         const display = phone.parts.join(" ");
@@ -105,7 +210,6 @@ function renderCard() {
         </a>`;
     });
 
-    // Email
     const emailFull = `${contact.email.user}@${contact.email.domain}`;
     html += `<a href="mailto:${emailFull}" class="contact-item">
         <div class="icon icon-email">${contact.email.icon}</div>
@@ -115,7 +219,6 @@ function renderCard() {
         </div>
     </a>`;
 
-    // URLs
     contact.urls.forEach(u => {
         html += `<a href="${u.url}" target="_blank" class="contact-item">
             <div class="icon icon-web">${u.icon}</div>
@@ -130,7 +233,7 @@ function renderCard() {
 }
 
 // ============================================
-// SAVE CONTACT AS .VCF FILE
+// SAVE CONTACT
 // ============================================
 function saveContact() {
     const emailFull = `${contact.email.user}@${contact.email.domain}`;
@@ -146,7 +249,6 @@ function saveContact() {
         `EMAIL;TYPE=${contact.email.type}:${emailFull}`
     ];
 
-    // URLs: first one with TYPE for Outlook, rest with item grouping for iOS
     let itemIndex = 1;
     contact.urls.forEach((u, i) => {
         if (i === 0 && u.vcardType) {
@@ -161,10 +263,8 @@ function saveContact() {
         }
     });
 
-    // Notes as fallback
     const noteUrls = contact.urls.slice(1).map(u => `${u.label}: ${u.url}`).join("\\n");
     if (noteUrls) lines.push(`NOTE:${noteUrls}`);
-
     lines.push("END:VCARD");
 
     const blob = new Blob([lines.join("\r\n")], { type: "text/vcard" });
@@ -187,7 +287,6 @@ function generateQR() {
 // ============================================
 // INIT
 // ============================================
-applyTheme();
 renderCard();
 generateQR();
 </script>
