@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Albert Wong - Digital Business Card</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme-purple.css" id="theme-stylesheet">
+</head>
+<body>
+
+<div class="card">
+    <!-- HEADER -->
+    <div class="card-header">
+        <img class="logo" id="card-logo" src="" alt="" style="display:none;">
+        <h1 id="card-name">Albert Wong</h1>
+        <p class="title" id="card-title">Assistant Director, IT Application</p>
+        <p class="company" id="card-company">Ocean Park Corporation</p>
+        
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="card-body" id="card-body"></div>
+
+    <!-- SAVE CONTACT BUTTON + QR CODE -->
+    <div class="card-footer">
+        <button class="btn-save" onclick="saveContact()">
+            <span>📥</span> Save to Contacts
+        </button>
+
+        <div class="qr-section" id="qr-section" style="display:none;">
+            <p>Scan to view this card</p>
+            <div class="qr-code">
+                <img id="qrcode" src="" alt="QR Code" width="150" height="150">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// SINGLE DATA SOURCE (obfuscated)
+// ============================================
+const contact = {
+    "firstName": "Albert",
+    "lastName": "Wong",
+    "title": "Assistant Director, IT Application",
+    "company": "Ocean Park Corporation",
+    "logo": "https://api.oceanpark.com.hk/media/rkwfxwh1/oceanpark_logo.webp",
+    "phoneDirect": {
+        "parts": [
+            "+852",
+            "3923",
+            "2895"
+        ],
+        "type": "WORK,VOICE",
+        "label": "Direct",
+        "icon": "📞"
+    },
+    "email": {
+        "user": "albert.dba.wong",
+        "domain": "oceanpark.com.hk",
+        "type": "WORK",
+        "label": "Email",
+        "icon": "✉️"
+    },
+    "urls": [
+        {
+            "url": "https://www.oceanpark.com.hk",
+            "display": "www.oceanpark.com.hk",
+            "label": "Ocean Park",
+            "icon": "🌐",
+            "vcardLabel": "Ocean Park"
+        },
+        {
+            "url": "https://waterworld.oceanpark.com.hk",
+            "display": "waterworld.oceanpark.com.hk",
+            "label": "Water World",
+            "icon": "🌐",
+            "vcardLabel": "Water World"
+        },
+        {
+            "url": "https://linkedin.com/in/albertdbwong",
+            "display": "linkedin.com/in/albertdbwong",
+            "label": "LinkedIn",
+            "icon": "💼",
+            "vcardLabel": "LinkedIn",
+            "social": "linkedin"
+        }
+    ],
+    "cardUrl": "https://opc-albertdbawong.github.io/namecard/nc_dtoqxt",
+    "theme": "purple"
+};
+
+const vcardConfig = {"title":true,"company":true,"department":false,"directPhone":true,"mobile":true,"email":true,"websites":true,"linkedin":true};
+
+// ============================================
+// RENDER CARD FROM DATA (obfuscation layer)
+// ============================================
+function renderCard() {
+    const body = document.getElementById("card-body");
+    let html = "";
+
+    // Logo (rendered from data)
+    if (contact.logo) {
+        var logoEl = document.getElementById("card-logo");
+        if (logoEl) {
+            logoEl.src = contact.logo;
+            logoEl.alt = contact.company || "Company";
+            logoEl.style.display = "";
+        }
+    }
+
+    // Phone numbers (reassembled from parts at runtime)
+    if (contact.phoneDirect) {
+        const number = contact.phoneDirect.parts.join("");
+        const display = contact.phoneDirect.parts.join(" ");
+        html += '<a href="tel:' + number + '" class="contact-item">' +
+            '<div class="icon icon-phone">' + contact.phoneDirect.icon + '</div>' +
+            '<div class="details">' +
+            '<div class="label">' + contact.phoneDirect.label + '</div>' +
+            '<div class="value">' + display + '</div>' +
+            '</div></a>';
+    }
+
+    if (contact.phoneMobile) {
+        const number = contact.phoneMobile.parts.join("");
+        const display = contact.phoneMobile.parts.join(" ");
+        html += '<a href="tel:' + number + '" class="contact-item">' +
+            '<div class="icon icon-phone">' + contact.phoneMobile.icon + '</div>' +
+            '<div class="details">' +
+            '<div class="label">' + contact.phoneMobile.label + '</div>' +
+            '<div class="value">' + display + '</div>' +
+            '</div></a>';
+    }
+
+    // Email (reassembled from user + domain at runtime)
+    if (contact.email) {
+        const emailFull = contact.email.user + "@" + contact.email.domain;
+        html += '<a href="mailto:' + emailFull + '" class="contact-item">' +
+            '<div class="icon icon-email">' + contact.email.icon + '</div>' +
+            '<div class="details">' +
+            '<div class="label">' + contact.email.label + '</div>' +
+            '<div class="value">' + emailFull + '</div>' +
+            '</div></a>';
+    }
+
+    // URLs
+    if (contact.urls) {
+        contact.urls.forEach(function(u) {
+            html += '<a href="' + u.url + '" target="_blank" class="contact-item">' +
+                '<div class="icon icon-web">' + u.icon + '</div>' +
+                '<div class="details">' +
+                '<div class="label">' + u.label + '</div>' +
+                '<div class="value">' + u.display + '</div>' +
+                '</div></a>';
+        });
+    }
+
+    body.innerHTML = html;
+}
+
+// ============================================
+// QR CODE
+// ============================================
+function generateQR() {
+    if (contact.cardUrl) {
+        var qrSection = document.getElementById("qr-section");
+        var qrImg = document.getElementById("qrcode");
+        if (qrSection) qrSection.style.display = "";
+        if (qrImg) {
+            qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(contact.cardUrl);
+        }
+    }
+}
+
+// ============================================
+// SAVE CONTACT AS .VCF FILE
+// ============================================
+function saveContact() {
+    var lines = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        "FN:" + contact.firstName + " " + contact.lastName,
+        "N:" + contact.lastName + ";" + contact.firstName + ";;;"
+    ];
+
+    if (vcardConfig.title && contact.title) lines.push("TITLE:" + contact.title);
+    if (vcardConfig.company && contact.company) lines.push("ORG:" + contact.company);
+    if (vcardConfig.department && contact.department) lines.push("X-DEPARTMENT:" + contact.department);
+    if (vcardConfig.directPhone && contact.phoneDirect) lines.push("TEL;TYPE=" + contact.phoneDirect.type + ":" + contact.phoneDirect.parts.join(""));
+    if (vcardConfig.mobile && contact.phoneMobile) lines.push("TEL;TYPE=" + contact.phoneMobile.type + ":" + contact.phoneMobile.parts.join(""));
+    if (vcardConfig.email && contact.email) lines.push("EMAIL;TYPE=" + contact.email.type + ":" + contact.email.user + "@" + contact.email.domain);
+
+    // URLs - first URL as primary (shown by Outlook), rest as itemN + NOTE fallback
+    var itemIndex = 1;
+    var noteLines = [];
+    if (contact.urls) {
+        var validUrls = contact.urls.filter(function(u) {
+            var isLinkedin = u.social === "linkedin";
+            if (isLinkedin) return vcardConfig.linkedin;
+            return vcardConfig.websites;
+        });
+
+        validUrls.forEach(function(u, i) {
+            if (i === 0) {
+                // First URL as primary — this is what Outlook displays
+                lines.push("URL:" + u.url);
+                lines.push("item" + itemIndex + ".URL:" + u.url);
+                lines.push("item" + itemIndex + ".X-ABLabel:" + (u.vcardLabel || u.label));
+                itemIndex++;
+            } else {
+                // Additional URLs as grouped items (iPhone/Android show these)
+                lines.push("item" + itemIndex + ".URL:" + u.url);
+                lines.push("item" + itemIndex + ".X-ABLabel:" + (u.vcardLabel || u.label));
+                itemIndex++;
+                // Collect for NOTE fallback (Outlook can show notes)
+                noteLines.push((u.vcardLabel || u.label) + ": " + u.url);
+            }
+
+            if (u.social) {
+                lines.push("X-SOCIALPROFILE;TYPE=" + u.social + ":" + u.url);
+                // Always include LinkedIn in NOTE fallback for Outlook
+                if (i === 0) {
+                    noteLines.push((u.vcardLabel || u.label) + ": " + u.url);
+                }
+            }
+        });
+    }
+
+    // NOTE field with additional URLs for clients that only show one URL
+    if (noteLines.length > 0) {
+        lines.push("NOTE:" + noteLines.join("\n"));
+    }
+
+    lines.push("END:VCARD");
+
+    var blob = new Blob([lines.join("\r\n")], { type: "text/vcard" });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = contact.firstName + "_" + contact.lastName + ".vcf";
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+// ============================================
+// INIT
+// ============================================
+renderCard();
+generateQR();
+</script>
+
+</body>
+</html>
